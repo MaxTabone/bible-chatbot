@@ -1,0 +1,61 @@
+CREATE TABLE IF NOT EXISTS bible_verses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  book TEXT NOT NULL,
+  chapter INTEGER NOT NULL,
+  verse INTEGER NOT NULL,
+  text TEXT NOT NULL,
+  translation TEXT NOT NULL,
+  language TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_bible_lookup
+  ON bible_verses(book, chapter, translation, language);
+
+CREATE INDEX IF NOT EXISTS idx_bible_search
+  ON bible_verses(text, translation);
+
+CREATE TABLE IF NOT EXISTS chapter_summaries (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  book TEXT NOT NULL,
+  chapter INTEGER NOT NULL,
+  summary TEXT NOT NULL,
+  language TEXT NOT NULL DEFAULT 'en',
+  UNIQUE(book, chapter, language)
+);
+
+CREATE TABLE IF NOT EXISTS user_notes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  book TEXT NOT NULL,
+  chapter INTEGER NOT NULL,
+  verse INTEGER NOT NULL,
+  note_text TEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS user_highlights (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  book TEXT NOT NULL,
+  chapter INTEGER NOT NULL,
+  verse INTEGER NOT NULL,
+  color TEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(book, chapter, verse)
+);
+
+CREATE TABLE IF NOT EXISTS user_bookmarks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  book TEXT NOT NULL,
+  chapter INTEGER NOT NULL,
+  verse INTEGER NOT NULL,
+  label TEXT,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(book, chapter, verse)
+);
+
+CREATE TABLE IF NOT EXISTS user_streaks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  date TEXT NOT NULL UNIQUE,
+  visited INTEGER NOT NULL DEFAULT 1
+);
