@@ -21,7 +21,7 @@ TRANSLATIONS = {
         "language": "en",
     },
     "WEB": {
-        "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/formats/csv/Webster.csv",
+        "url": "https://raw.githubusercontent.com/scrollmapper/bible_databases/master/formats/csv/Webster.csv",  # Webster's 1833 revision (public domain)
         "language": "en",
     },
 }
